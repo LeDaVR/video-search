@@ -2,11 +2,13 @@ from flask import Flask, render_template, request, redirect, send_file, url_for
 from werkzeug.utils import secure_filename, send_from_directory
 import firebase_admin
 from firebase_admin import firestore
+from google.cloud import storage
 
 
 app = Flask(__name__)
 firebaseapp = firebase_admin.initialize_app()
 db = firestore.client()
+storage_client = storage.Client()
 
 
 @app.route("/",methods=['GET','POST'])
@@ -56,6 +58,18 @@ def watch(id):
         ## AGREGAR QUERY
         query = buscar(tags)
         return render_template('youtube.html',query = query)
+
+@app.route('/upload',methods=['POST'])
+def upload():
+    file = request.files['file-upload']
+    print(request.files['file-upload'])
+
+    video_bucket = storage_client.bucket('video-bucket-322')
+    video_blob = video_bucket.blob(file.filename)
+
+    video_blob.upload_from_file(file.stream, content_type = file.content_type)
+
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
