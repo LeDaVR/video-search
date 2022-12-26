@@ -356,7 +356,7 @@
         {% block content %}
             {% for info in query %}
             <div class="video-preview">
-                <a href="watch/{{info['video_url']}}">
+                <a href="{{url_for('watch/{{info['video_url']}}')}}">
                     <div class="inside-video-preview">
                         <img class="preview-thumbnail" src="{{info['image_url']}}">
                     </div>
