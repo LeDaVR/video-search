@@ -9,7 +9,7 @@ app = Flask(__name__)
 firebaseapp = firebase_admin.initialize_app()
 db = firestore.client()
 storage_client = storage.Client()
-
+app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024
 
 @app.route("/",methods=['GET','POST'])
 def index():
