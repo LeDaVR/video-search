@@ -40,13 +40,16 @@ def getVideo(query = [["Nombre Video","https://storage.cloud.google.com/video-bu
 
 @app.route("/test")
 def test():
-    girrages = db.collection(u'giraffe')
-    query = girrages.where(u'url', u'in' , ['https://storage.googleapis.com/video-bucket-322/giraffes_1280p.mp4','sdfgadasd'])
-    a = query.stream()
-    print(a)
-    for doc in a:
-        print(doc.get('url'))
-    return "good"
+    videos_data = db.collection(u'video-data')
+    query = videos_data.where(u'tag', u'in' , ['giraffe','sdfgadasd'])
+    results = query.stream()
+    urls = ""
+
+    for doc in results:
+        urls += doc.get('url')
+    
+
+    return urls
 
 @app.route("/search",methods=['GET','POST'])
 def search():
