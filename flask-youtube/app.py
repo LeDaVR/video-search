@@ -2,12 +2,10 @@ from flask import Flask, render_template, request, redirect, send_file, url_for
 from werkzeug.utils import secure_filename, send_from_directory
 import firebase_admin
 from firebase_admin import firestore
-from firebase_admin import credentials
 
 
 app = Flask(__name__)
-cred = credentials.Certificate('yiutube-372421-d388c0ffacab.json')
-firebaseapp = firebase_admin.initialize_app(cred)
+firebaseapp = firebase_admin.initialize_app()
 db = firestore.client()
 
 
