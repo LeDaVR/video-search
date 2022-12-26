@@ -41,7 +41,6 @@ def buscar(tags):
 
 @app.route("/watch/<id>",methods=['GET','POST'])
 def watch(id):
-    print("INDEX")
     if request.method == 'GET':
         request.args.get('url')
         ## Obtener video
@@ -51,7 +50,6 @@ def watch(id):
         # HACER QUERY
         return render_template("watch.html",url = url)
 
-    print("INDEX POST")
     if request.method == 'POST':
         busqueda = request.form['busqueda']
         tags = busqueda.split(' ')

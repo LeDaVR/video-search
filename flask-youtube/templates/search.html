@@ -299,8 +299,7 @@
                 <img class="youtube-icon" src="{{url_for('static',filename='topbar-icons/youtube-logo.svg')}}">
             </div>
 
-            <form method="post">
-                <div class="topbar-center">
+            <form class="topbar-center" method="post">
     
                         <input class="search-bar" placeholder="Search" type="text"  id="busqueda" name="busqueda">
                         <button class="search-button" type="submit">
@@ -313,8 +312,6 @@
                         <img class="voice-icon" src="{{url_for('static',filename='topbar-icons/voice-search-icon.svg')}}">
                         <div class="tooltip">Search with your voice</div>
                     </button>
-                    
-                </div>
             </form>
 
             <div class="topbar-right">
