@@ -360,28 +360,8 @@
 
         <div class="grid-content" >
                 <iframe class="video-content"
-                src="https://storage.googleapis.com/video-bucket-322/video.mp4">
+                src="{{url}}">
                 </iframe>
-                <nav>
-                    <ul>
-            {% block content %}
-                {% for info in query %}
-                <div class="video-preview">
-                    <div class="inside-video-preview">
-                        <img class="preview-thumbnail" src="{{info[2]}}">
-                    </div>
-                    <div class="preview-info">
-                        <div class="video-descripcion">
-                            <p class="video-title">{{info[0]}}</p>
-                            
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                
-            {% endblock %}
-                </ul>
-                </nav>
         </div>
     </body>
 </html>

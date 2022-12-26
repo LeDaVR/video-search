@@ -10,19 +10,18 @@ db = firestore.client()
 
 
 @app.route("/",methods=['GET','POST'])
-def index(): # post
-    print("INDEX")
-    if request.method == 'GET':
-        return render_template("youtube.html")
+def index():
 
-    print("INDEX POST")
+    if request.method == 'GET':
+        query = []
+        return render_template("youtube.html",query = query)
+
     if request.method == 'POST':
         busqueda = request.form['busqueda']
         tags = busqueda.split(' ')
         ## AGREGAR QUERY
         query = buscar(tags)
-        return render_template('search.html',query = query)
-    return render_template('youtube.html')
+        return render_template('youtube.html',query = query)
 
 def buscar(tags):
     videos_data = db.collection(u'video-data')
@@ -34,66 +33,31 @@ def buscar(tags):
         results_array += [
             {
                 'image_url' : 'https://storage.googleapis.com/thumbnail-bucket-322/'+doc.get('thumbnail'),
-                'video_url' : doc.get('url')
+                'video_url' : doc.id
             }
         ]
-    
 
     return results_array
 
-def getVideo(query = [["Nombre Video","https://storage.cloud.google.com/video-bucket-322/video.mp4"]]):
-    res = list(query)
-    for item in range(5):
-        res.append(query[0])
-    return res
-
-@app.route("/test")
-def test():
-    videos_data = db.collection(u'video-data')
-    query = videos_data.where(u'tag', u'in' , ['giraffe','sdfgadasd'])
-    results = query.stream()
-    urls = ""
-
-    for doc in results:
-        urls += doc.get('url')
-    
-
-    return urls
-
-@app.route("/search",methods=['GET','POST'])
-def search():
-    print("INDEX")
-    if request.method == 'GET':
-        return render_template("search.html")
-
-    print("INDEX POST")
-    if request.method == 'POST':
-        print("INDEX POST inside")
-        correo = request.form['busqueda']
-        print(correo)
-        query = buscar(correo)
-        
-        return render_template('search.html',query = query)
-    return render_template('youtube.html')
-
-@app.route("/watch",methods=['GET','POST'])
-def watch():
+@app.route("/watch/<id>",methods=['GET','POST'])
+def watch(id):
     print("INDEX")
     if request.method == 'GET':
         request.args.get('url')
         ## Obtener video
         print('url')
-        query = getVideo()
-        nombre = "name video"
+        videos_data = db.collection(u'video-data').document(id)
+        url = videos_data.get().to_dict()['url']
         # HACER QUERY
-        return render_template("watch.html",query = query,nombre = nombre)
+        return render_template("watch.html",url = url)
 
     print("INDEX POST")
     if request.method == 'POST':
-        #MANDARME AL SEARCH
-        
-        return render_template('search.html',pedido = query)
-    return render_template('youtube.html')
+        busqueda = request.form['busqueda']
+        tags = busqueda.split(' ')
+        ## AGREGAR QUERY
+        query = buscar(tags)
+        return render_template('youtube.html',query = query)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
