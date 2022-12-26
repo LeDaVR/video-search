@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Youtube bamba</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <style>
+
+            body {
+                font-family: Roboto, Arial;
+                font-size: 14px;
+                padding-top: 80px;
+                padding-left: 95px;
+                padding-right: 40px;
+                margin: 0;
+                background-color: rgb(247, 247, 247);
+            }
+
+            p {
+                font-family: Roboto, Arial;
+                margin: 0;
+            }
+
+            .top-bar {
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 55px;
+                border-width: 0;
+                border-color: rgb(225, 225, 225);
+                border-bottom-width: 1px;
+                border-style: solid;
+            }
+
+            .topbar-left {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .hamburguer-icon {
+                height: 24px;
+                margin-left: 25px;
+                margin-right:  25px;
+                cursor: pointer;
+            }
+
+            .youtube-icon {
+                height: 20px;
+                cursor: pointer;
+            }
+
+            .topbar-center {
+                display: flex;
+                flex-direction: row;
+                flex: 1;
+                align-items: center;
+                max-width: 550px;
+
+            }
+
+            .search-bar {
+                box-sizing: border-box;
+                font-family: Roboto, Arial;
+                margin-left: 60px;
+                margin-right: -1px;
+                min-width: 0;
+                height: 40px;
+                flex: 1;
+                border-color: rgb(203, 203, 203);
+                border-style: solid;
+                border-radius: 2px;
+                border-width: 1px;
+                box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.05);
+            }
+
+            .search-bar::placeholder {
+                font-size: 16px;
+                color: rgb(151, 151, 151);
+                padding-left: 10px;
+            }
+
+            .search-bar:focus {
+                outline-width: 1px;
+                outline-color: rgb(137, 137, 255);
+            }
+
+            .search-button {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                box-sizing: border-box;
+                background-color: rgb(243, 243, 243);
+                border-color: rgb(203, 203, 203);
+                border-style: solid;
+                padding: 2px 0;
+                transition: background-color 0.15s;
+                cursor: pointer;
+                border-top-right-radius: 2px;
+                border-bottom-right-radius: 2px;
+                border-width: 1px;
+            }
+
+
+            .voice-button .tooltip,
+            .search-button .tooltip {
+                font-family: Roboto, Arial;
+                position: absolute;
+                bottom: -48px;
+                border-radius: 2px;
+                background-color: gray;
+                text-align: center;
+                color: white;
+                padding: 10px 8px;
+                font-size: 13px;
+                margin: 0 4px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+                border: none;
+                white-space: nowrap;
+            }
+
+            .voice-button:hover .tooltip,
+            .search-button:hover .tooltip {
+                opacity: 1;
+            }
+
+            .search-image {
+                padding: 5px 20px;
+                height: 24px;
+                
+            }
+
+            .search-image:hover {
+                background-color: rgb(235, 235, 235);
+            }
+
+            .voice-button {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                margin-left: 20px;
+                border-radius: 30px;
+                border: none;
+                background-color: rgb(245, 245, 245);
+                cursor: pointer;
+            }
+
+            .voice-icon {
+                padding: 8px;
+                height: 24px;
+            }
+
+
+
+            .topbar-right {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+            }
+
+            .upload-icon,
+            .notifications-icon,
+            .apps-icon,
+            .mychannel-icon {
+                margin-right: 25px;
+                height: 24px;
+                cursor: pointer;
+            }
+
+
+            .mychannel-icon {
+                margin-right: 30px;
+                height: 32px;
+            }
+
+            
+            .side-bar {
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                justify-content: top;
+                align-items: center;
+                top: 55px;
+                width: 75px;
+                bottom: 0;
+                left: 0;
+            }
+            
+            .side-button {
+                background-color: white;
+                width: 75px;
+                height: 75px;
+                border: none;
+                transition: background-color 0.15s;
+            }
+
+            .side-button:hover {
+                background-color: rgb(233, 233, 233);
+            }
+
+            .side-icon {
+                width: 25px;
+            }
+
+            .side-icon-name {
+                font-family:Roboto, Arial;
+                font-size: 10px;
+                white-space: nowrap;
+            }
+
+            .grid-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                row-gap: 30px;
+                column-gap: 16px;
+            }
+
+            @media (min-width: 1000px) {
+                .grid-content {
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                }
+            }
+
+            @media (max-width: 850px) {
+                .grid-content {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .video-preview {
+                background-color: 	#F8F8F8;
+                box-shadow: 2px;
+                border-radius: 10px;
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+            }
+
+            .inside-video-preview {
+                box-sizing: border-box;
+                margin: 5%;
+            }
+            
+            .preview-thumbnail {
+                width: 100%;
+            }
+
+
+            .preview-info {
+                display: grid;
+                grid-template-columns: 36px 1fr;
+                margin-top: 10px;
+            }
+
+            .video-descripcion {
+                flex: 1;
+                margin-left: 10px;
+            }
+
+            .picture {
+                border-radius: 50px;
+                width: 100%;
+            }
+
+            .video-title {
+                font-weight: 500;
+                margin-bottom: 15px;
+                line-height: 20px;
+            }
+
+            .video-author,
+            .video-stats {
+                font-size: 12px;
+                color: rgb(105, 105, 105);
+            }
+
+            .video-author {
+                margin-bottom: 4px;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="top-bar">
+            <div class="topbar-left">
+                <img class="hamburguer-icon" src="{{url_for('static',filename='topbar-icons/hamburger-menu.svg')}}">
+                <img class="youtube-icon" src="{{url_for('static',filename='topbar-icons/youtube-logo.svg')}}">
+            </div>
+
+            <form method="post">
+                <div class="topbar-center">
+    
+                        <input class="search-bar" placeholder="Search" type="text"  id="busqueda" name="busqueda">
+                        <button class="search-button" type="submit">
+                            <img class="search-image" src="{{url_for('static',filename='topbar-icons/search.svg')}}">
+                            <div class="tooltip">
+                                Search
+                            </div>
+                        </button>
+                    <button class="voice-button">
+                        <img class="voice-icon" src="{{url_for('static',filename='topbar-icons/voice-search-icon.svg')}}">
+                        <div class="tooltip">Search with your voice</div>
+                    </button>
+                    
+                </div>
+            </form>
+
+            <div class="topbar-right">
+                <img class="upload-icon" src="{{url_for('static',filename='topbar-icons/upload.svg')}}">
+                <img class="apps-icon" src="{{url_for('static',filename='topbar-icons/youtube-apps.svg')}}">
+                <img class="notifications-icon" src="{{url_for('static',filename='topbar-icons/notifications.svg')}}">
+                <img class="mychannel-icon" src="{{url_for('static',filename='channel-pictures/my-channel.jpeg')}}">
+            </div>
+        </div>
+        
+        <div class="side-bar">
+            <button class="side-button" >
+                <img class="side-icon" src="{{url_for('static',filename='sidebar/home.svg')}}">
+                <div class="side-icon-name" >Home</div>
+            </button>
+            <button class="side-button" >
+                <img class="side-icon" src="{{url_for('static',filename='sidebar/explore.svg')}}">
+                <div class="side-icon-name" >Explore</div>
+            </button>
+            <button class="side-button" >
+                <img class="side-icon" src="{{url_for('static',filename='sidebar/subscriptions.svg')}}">
+                <div class="side-icon-name" >Subscriptions</div>
+            </button>
+            <button class="side-button" >
+                <img class="side-icon" src="{{url_for('static',filename='sidebar/originals.svg')}}">
+                <div class="side-icon-name" >Originals</div>
+            </button>
+            <button class="side-button" >
+                <img class="side-icon" src="{{url_for('static',filename='sidebar/youtube-music.svg')}}">
+                <div class="side-icon-name" >Youtube Music</div>
+            </button>
+            <button class="side-button" >
+                <img class="side-icon" src="{{url_for('static',filename='sidebar/library.svg')}}">
+                <div class="side-icon-name" >Library</div>
+            </button>
+        </div>
+
+        <div class="grid-content">
+        {% block content %}
+            {% for info in query %}
+            <div class="video-preview">
+                <div class="inside-video-preview">
+                    <img class="preview-thumbnail" src="{{info[2]}}">
+                </div>
+                <div class="preview-info">
+                    <div class="video-descripcion">
+                        <p class="video-title">{{info[0]}}</p>
+                        
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        {% endblock %}
+        </div>
+    </body>
+</html>
