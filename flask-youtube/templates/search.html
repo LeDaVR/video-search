@@ -357,12 +357,10 @@
             {% for info in query %}
             <div class="video-preview">
                 <div class="inside-video-preview">
-                    <img class="preview-thumbnail" src="{{info[2]}}">
+                    <img class="preview-thumbnail" src="{{info['image_url']}}">
                 </div>
                 <div class="preview-info">
-                    <div class="video-descripcion">
-                        <p class="video-title">{{info[0]}}</p>
-                        
+                    <div class="video-descripcion">                        
                     </div>
                 </div>
             </div>
